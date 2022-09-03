@@ -2,6 +2,9 @@
 
 Try out the [Demo!](https://framer-tinder-cards.vercel.app/)
 
+https://user-images.githubusercontent.com/61158210/188274141-7cd10833-13ad-4b28-9341-75d46fd75652.mp4
+
+
 ### Built with
 
 - Nextjs
