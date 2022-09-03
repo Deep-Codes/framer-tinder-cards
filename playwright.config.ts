@@ -28,10 +28,10 @@ const config: PlaywrightTestConfig = {
   },
 
   use: {
-    headless: false,
-    launchOptions: {
-      slowMo: 200,
-    },
+    // headless: false,
+    // launchOptions: {
+    //   slowMo: 20,
+    // },
     // Use baseURL so to make navigations relative.
     // More information: https://playwright.dev/docs/api/class-testoptions#test-options-base-url
     baseURL,
@@ -53,18 +53,18 @@ const config: PlaywrightTestConfig = {
         ...devices["Desktop Chrome"],
       },
     },
-    {
-      name: "Desktop Firefox",
-      use: {
-        ...devices["Desktop Firefox"],
-      },
-    },
-    {
-      name: "Desktop Safari",
-      use: {
-        ...devices["Desktop Safari"],
-      },
-    },
+    // {
+    //   name: "Desktop Firefox",
+    //   use: {
+    //     ...devices["Desktop Firefox"],
+    //   },
+    // },
+    // {
+    //   name: "Desktop Safari",
+    //   use: {
+    //     ...devices["Desktop Safari"],
+    //   },
+    // },
     // Test against mobile viewports.
     {
       name: "Mobile Chrome",
@@ -72,10 +72,10 @@ const config: PlaywrightTestConfig = {
         ...devices["Pixel 5"],
       },
     },
-    {
-      name: "Mobile Safari",
-      use: devices["iPhone 12"],
-    },
+    // {
+    //   name: "Mobile Safari",
+    //   use: devices["iPhone 12"],
+    // },
   ],
 };
 export default config;

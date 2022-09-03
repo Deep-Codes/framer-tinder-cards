@@ -53,6 +53,7 @@ const Home: NextPage = () => {
             disabled={history.length === 0}
             className="w-14 h-14 rounded-full text-black bg-white inline-flex justify-center items-center disabled:cursor-not-allowed"
             onClick={undoSwipe}
+            data-testid="undo-btn"
           >
             <RotateIcon strokeWidth={3} />
           </button>
