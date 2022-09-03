@@ -20,7 +20,7 @@ type ArrayElementType<ArrType> = ArrType extends readonly (infer ElementType)[]
 
 type CardType = ArrayElementType<typeof CARDS>;
 
-type SwipeType = "like" | "nope";
+export type SwipeType = "like" | "nope";
 
 type ResultType = { [k in SwipeType]: number };
 
@@ -79,10 +79,16 @@ const Home: NextPage = () => {
         >
           <RotateIcon />
         </button>
-        <div className="w-14 h-14 rounded-full text-white inline-flex justify-center items-center">
+        <div
+          className="w-14 h-14 rounded-full text-white inline-flex justify-center items-center"
+          data-testid="like-count"
+        >
           {result.like}
         </div>
-        <div className="w-14 h-14 rounded-full text-white inline-flex justify-center items-center">
+        <div
+          className="w-14 h-14 rounded-full text-white inline-flex justify-center items-center"
+          data-testid="nope-count"
+        >
           {result.nope}
         </div>
       </footer>
@@ -124,6 +130,7 @@ const Card: React.FC<CardProps> = ({ card, removeCard, active }) => {
             transition: { duration: 0.2 },
           }}
           className={classNames}
+          data-testid="active-card"
         >
           <Emoji label={card.name} emoji={card.emoji} />
           <Title title={card.name} color={card.color} />
