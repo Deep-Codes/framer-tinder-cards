@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:e2e": "playwright test"
+    "test": "playwright test"
   },
   "dependencies": {
     "framer-motion": "^7.2.1",

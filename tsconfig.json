@@ -3,7 +3,11 @@
     "baseUrl": "./",
     "paths": {
       "@icons/*": ["icons/*"],
+      "@components/*": ["components/*"],
+      "@data/*": ["data/*"],
     },
+   "declaration": true,
+   "declarationDir": "./types",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

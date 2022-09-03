@@ -3,13 +3,13 @@ import { SVGProps } from "react";
 const RotateIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     fill="none"
-    height={24}
     shapeRendering="geometricPrecision"
     stroke="currentColor"
     strokeLinecap="round"
     strokeLinejoin="round"
-    strokeWidth={1.5}
-    width={24}
+    width={20}
+    height={20}
+    viewBox="0 0 24 24"
     {...props}
   >
     <path d="M1 4v6h6" />

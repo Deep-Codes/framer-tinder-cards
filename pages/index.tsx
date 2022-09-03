@@ -1,36 +1,11 @@
 import { useState } from "react";
-import { AnimatePresence, motion, PanInfo } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import RotateIcon from "@icons/RotateIcon";
-
-const CARDS = [
-  { id: 0, emoji: "🍅", name: "Tomato", color: "#E42100" },
-  { id: 1, emoji: "🍊", name: "Tangerine", color: "#F36000" },
-  { id: 2, emoji: "🍋", name: "Lemon", color: "#F3BC00" },
-  { id: 3, emoji: "🍐", name: "Pear", color: "#A0A226" },
-  { id: 4, emoji: "🥬", name: "Lettuce", color: "#349B19" },
-  { id: 5, emoji: "🫐", name: "Blueberries", color: "#70BBFF" },
-  { id: 6, emoji: "🍆", name: "Eggplant", color: "#7F4877" },
-  { id: 7, emoji: "🍇", name: "Grapes", color: "#BC2A6E" },
-];
-
-type ArrayElementType<ArrType> = ArrType extends readonly (infer ElementType)[]
-  ? ElementType
-  : never;
-
-type CardType = ArrayElementType<typeof CARDS>;
-
-export type SwipeType = "like" | "nope";
-
-type ResultType = { [k in SwipeType]: number };
-
-type HistoryType = CardType & { swipe: SwipeType };
-
-interface CardProps {
-  card: CardType;
-  active: boolean;
-  removeCard: (oldCard: CardType, swipe: SwipeType) => void;
-}
+import Counter from "@components/Counter";
+import { CardType, HistoryType, ResultType, SwipeType } from "types";
+import CARDS from "@data/cards";
+import Card from "@components/Card";
 
 const Home: NextPage = () => {
   const [cards, setCards] = useState(CARDS);
@@ -72,106 +47,21 @@ const Home: NextPage = () => {
           />
         ))}
       </AnimatePresence>
-      <footer className="absolute bottom-10 flex items-center space-x-4">
-        <button
-          className="w-14 h-14 rounded-full text-white inline-flex justify-center items-center"
-          onClick={undoSwipe}
-        >
-          <RotateIcon />
-        </button>
-        <div
-          className="w-14 h-14 rounded-full text-white inline-flex justify-center items-center"
-          data-testid="like-count"
-        >
-          {result.like}
+      <footer className="absolute bottom-4 flex items-center space-x-4">
+        <div className="flex flex-col items-center space-y-2">
+          <button
+            disabled={history.length === 0}
+            className="w-14 h-14 rounded-full text-black bg-white inline-flex justify-center items-center disabled:cursor-not-allowed"
+            onClick={undoSwipe}
+          >
+            <RotateIcon strokeWidth={3} />
+          </button>
+          <span className="text-xs text-white">Undo</span>
         </div>
-        <div
-          className="w-14 h-14 rounded-full text-white inline-flex justify-center items-center"
-          data-testid="nope-count"
-        >
-          {result.nope}
-        </div>
+        <Counter label="Likes" count={result.like} testid="like-count" />
+        <Counter label="Nopes" count={result.nope} testid="nope-count" />
       </footer>
     </div>
-  );
-};
-
-const Card: React.FC<CardProps> = ({ card, removeCard, active }) => {
-  const [leaveX, setLeaveX] = useState(0);
-  const onDragEnd = (_e: any, info: PanInfo) => {
-    if (info.offset.x > 200) {
-      setLeaveX(1000);
-      removeCard(card, "like");
-    }
-    if (info.offset.x < -200) {
-      setLeaveX(-1000);
-      removeCard(card, "nope");
-    }
-  };
-  const classNames = `absolute h-[430px] w-[300px] bg-white shadow-xl rounded-2xl flex flex-col justify-center items-center cursor-grab`;
-  return (
-    <>
-      {active ? (
-        <motion.div
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          onDragEnd={onDragEnd}
-          initial={{
-            scale: 1,
-          }}
-          animate={{
-            scale: 1.05,
-            rotate: `${card.name.length % 2 === 0 ? 6 : -6}deg`,
-          }}
-          exit={{
-            x: leaveX,
-            opacity: 0,
-            scale: 0.5,
-            transition: { duration: 0.2 },
-          }}
-          className={classNames}
-          data-testid="active-card"
-        >
-          <Emoji label={card.name} emoji={card.emoji} />
-          <Title title={card.name} color={card.color} />
-        </motion.div>
-      ) : (
-        <div
-          className={`${classNames} ${
-            card.name.length % 2 === 0 ? "rotate-6" : "-rotate-6"
-          }`}
-        >
-          <Emoji label={card.name} emoji={card.emoji} />
-          <Title title={card.name} color={card.color} />
-        </div>
-      )}
-    </>
-  );
-};
-
-/**
- * a11y friendly component for emojis
- * @reference https://devyarns.com/accessible-emojis
- */
-const Emoji: React.FC<{ emoji: string; label: string }> = ({
-  emoji,
-  label,
-}) => {
-  return (
-    <span role="img" aria-label={label} className="text-[140px]">
-      {emoji}
-    </span>
-  );
-};
-
-const Title: React.FC<{ title: string; color: string }> = ({
-  title,
-  color,
-}) => {
-  return (
-    <span style={{ color }} className="text-5xl font-bold">
-      {title}
-    </span>
   );
 };
 
