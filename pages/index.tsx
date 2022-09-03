@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion, PanInfo } from "framer-motion";
 import type { NextPage } from "next";
+import RotateIcon from "@icons/RotateIcon";
 
 const CARDS = [
   { id: 0, emoji: "🍅", name: "Tomato", color: "#E42100" },
@@ -71,10 +72,19 @@ const Home: NextPage = () => {
           />
         ))}
       </AnimatePresence>
-      <footer className="absolute bottom-10">
-        <button onClick={undoSwipe}>Undo</button>
-        <span> ❤️ {result.like}</span>
-        <span> ❌ {result.nope}</span>
+      <footer className="absolute bottom-10 flex items-center space-x-4">
+        <button
+          className="w-14 h-14 bg-gray-200 rounded-full text-white inline-flex justify-center items-center"
+          onClick={undoSwipe}
+        >
+          <RotateIcon />
+        </button>
+        <div className="w-14 h-14 bg-gray-200 rounded-full text-white inline-flex justify-center items-center">
+          {result.like}
+        </div>
+        <div className="w-14 h-14 bg-gray-200 rounded-full text-white inline-flex justify-center items-center">
+          {result.nope}
+        </div>
       </footer>
     </div>
   );
