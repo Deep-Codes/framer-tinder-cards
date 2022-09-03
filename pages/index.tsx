@@ -6,6 +6,7 @@ import Counter from "@components/Counter";
 import { CardType, HistoryType, ResultType, SwipeType } from "types";
 import CARDS from "@data/cards";
 import Card from "@components/Card";
+import Head from "next/head";
 
 const Home: NextPage = () => {
   const [cards, setCards] = useState(CARDS);
@@ -37,6 +38,9 @@ const Home: NextPage = () => {
   };
   return (
     <div className="relative flex flex-col justify-center items-center w-full h-screen gradient">
+      <Head>
+        <title>Tinder cards with Framer motion</title>
+      </Head>
       <AnimatePresence>
         {cards.map((card, index) => (
           <Card
@@ -47,6 +51,9 @@ const Home: NextPage = () => {
           />
         ))}
       </AnimatePresence>
+      {cards.length === 0 ? (
+        <span className="text-white text-xl">End of Stack</span>
+      ) : null}
       <footer className="absolute bottom-4 flex items-center space-x-4">
         <div className="flex flex-col items-center space-y-2">
           <button
@@ -54,6 +61,7 @@ const Home: NextPage = () => {
             className="w-14 h-14 rounded-full text-black bg-white inline-flex justify-center items-center disabled:cursor-not-allowed"
             onClick={undoSwipe}
             data-testid="undo-btn"
+            aria-label="Undo Swipe"
           >
             <RotateIcon strokeWidth={3} />
           </button>

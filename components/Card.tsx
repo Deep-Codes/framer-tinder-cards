@@ -5,11 +5,11 @@ import { CardProps } from "types";
 const Card: React.FC<CardProps> = ({ card, removeCard, active }) => {
   const [leaveX, setLeaveX] = useState(0);
   const onDragEnd = (_e: any, info: PanInfo) => {
-    if (info.offset.x > 200) {
+    if (info.offset.x > 100) {
       setLeaveX(1000);
       removeCard(card, "like");
     }
-    if (info.offset.x < -200) {
+    if (info.offset.x < -100) {
       setLeaveX(-1000);
       removeCard(card, "nope");
     }
