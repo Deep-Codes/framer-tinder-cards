@@ -10,7 +10,11 @@ import Head from "next/head";
 
 const Home: NextPage = () => {
   const [cards, setCards] = useState(CARDS);
-  const [result, setResult] = useState<ResultType>({ like: 0, nope: 0 });
+  const [result, setResult] = useState<ResultType>({
+    like: 0,
+    nope: 0,
+    superlike: 0,
+  });
   const [history, setHistory] = useState<HistoryType[]>([]);
   // index of last card
   const activeIndex = cards.length - 1;
@@ -69,6 +73,11 @@ const Home: NextPage = () => {
         </div>
         <Counter label="Likes" count={result.like} testid="like-count" />
         <Counter label="Nopes" count={result.nope} testid="nope-count" />
+        <Counter
+          label="Superlike"
+          count={result.superlike}
+          testid="superlike-count"
+        />
       </footer>
     </div>
   );

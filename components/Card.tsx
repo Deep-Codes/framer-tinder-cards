@@ -4,7 +4,13 @@ import { CardProps } from "types";
 
 const Card: React.FC<CardProps> = ({ card, removeCard, active }) => {
   const [leaveX, setLeaveX] = useState(0);
+  const [leaveY, setLeaveY] = useState(0);
   const onDragEnd = (_e: any, info: PanInfo) => {
+    if (info.offset.y < -100) {
+      setLeaveY(-2000);
+      removeCard(card, "superlike");
+      return;
+    }
     if (info.offset.x > 100) {
       setLeaveX(1000);
       removeCard(card, "like");
@@ -19,8 +25,8 @@ const Card: React.FC<CardProps> = ({ card, removeCard, active }) => {
     <>
       {active ? (
         <motion.div
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
+          drag={true}
+          dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
           onDragEnd={onDragEnd}
           initial={{
             scale: 1,
@@ -31,6 +37,7 @@ const Card: React.FC<CardProps> = ({ card, removeCard, active }) => {
           }}
           exit={{
             x: leaveX,
+            y: leaveY,
             opacity: 0,
             scale: 0.5,
             transition: { duration: 0.2 },
